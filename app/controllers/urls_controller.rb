@@ -1,4 +1,6 @@
 class UrlsController < ApplicationController
+    before_action :check_rate_limit, only: [:show]
+
     def create
         url = Url.find_or_create_by(long_url: params[:long_url])
         render json: { short_url: short_url(url.short_code) }

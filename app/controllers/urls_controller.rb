@@ -1,11 +1,10 @@
 class UrlsController < ApplicationController
-    def create 
+    def create
         url = Url.find_or_create_by(long_url: params[:long_url])
         render json: { short_url: short_url(url.short_code) }
     end
 
     def show
-
         # url = Url.find_by(short_code: params[:code])
 
         long_url = Rails.cache.fetch("url:#{params[:code]}", expires_in: 12.hours) do
